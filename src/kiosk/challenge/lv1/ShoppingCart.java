@@ -24,12 +24,20 @@ public class ShoppingCart {
         }
     }
 
-    public void getTotalPrice() {
+    public void getDetailTotalPrice() {
         int totalPrice = 0;
         System.out.println("[ Total ]");
         for (MenuItem item : cart) {
             totalPrice += item.getPrice();
         }
         System.out.println("W " + totalPrice);
+    }
+
+    public int getTotalPrice() {
+        int totalPrice = 0;
+        for (MenuItem item : cart) {
+            totalPrice += item.getPrice();
+        }
+        return totalPrice;
     }
 }

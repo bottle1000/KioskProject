@@ -7,6 +7,7 @@ import kiosk.challenge.lv1.menus.drink.Drink;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 import static kiosk.essential.lv3.main.DELIMITER;
 
@@ -106,23 +107,52 @@ public class Kiosk {
             MenuItem menuItem = menuItems.get(Choice - 1);
             System.out.println("선택하신 메뉴 : [이름: " + menuItem.getName() +", 가격: " + menuItem.getPrice()
                     +", 설명: " + menuItem.getExplain()+"]");
-            System.out.println("위 메뉴를 장바구니에 추가하겠습니까?");
-            System.out.println("1. 확인       2. 취소");
-            int yesOrNo = scanner.nextInt();
-            scanner.nextLine(); //개행제거
-            if (yesOrNo == 1) {
-                shoppingCart.addCart(menuItem);
-                System.out.println(menuItem.getName() + "이 장바구니에 추가되었습니다.");
-                if (!shoppingCart.getCart().isEmpty()) {
-                    printMainMenu();
-                    System.out.println();
-                    printOrderMenu();
-                } else if (yesOrNo == 2) {
-
-                }
-            }
+            order(scanner, menuItem);
         } else {
             System.out.println("잘못된 선택입니다! 다시 시도해주세요.");
+        }
+    }
+
+    private void order(Scanner scanner, MenuItem menuItem) {
+        System.out.println("위 메뉴를 장바구니에 추가하겠습니까?");
+        System.out.println("1. 확인       2. 취소");
+
+        int yesOrNo = scanner.nextInt();
+        scanner.nextLine(); //개행제거
+
+        if (yesOrNo == 1) {
+            shoppingCart.addCart(menuItem);
+            System.out.println(menuItem.getName() + "가(이) 장바구니에 추가되었습니다.");
+            System.out.println();
+            if (!shoppingCart.getCart().isEmpty()) {
+                printMainMenu();
+                System.out.println();
+                printOrderMenu();
+                System.out.println();
+
+                int orderChoice = scanner.nextInt();
+                scanner.nextLine();
+
+                if (orderChoice == 4) {
+                    System.out.println("아래와 같이 주문 하시겠습니까?");
+                    shoppingCart.showCartItems();
+                    System.out.println();
+                    shoppingCart.getDetailTotalPrice();
+
+                    System.out.println("1. 주문       2. 메뉴판");
+                    int finalChoice = scanner.nextInt();
+                    scanner.nextLine();
+                    if (finalChoice == 1) {
+                        System.out.println("주문이 완료되었습니다. 금액은 W " + shoppingCart.getTotalPrice() + " 입니다.");
+                    }
+                } else if (orderChoice == 5) {
+                    System.out.println("주문을 취소합니다.");
+                }
+            } else {
+                throw new IllegalStateException("장바구니에 추가하지 않고 주문을 할 수 없습니다.");
+            }
+        } else if (yesOrNo == 2) {
+            System.out.println("MAIN MENU로 되돌아갑니다.");
         }
     }
 
