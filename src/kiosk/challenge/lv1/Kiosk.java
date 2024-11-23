@@ -116,11 +116,9 @@ public class Kiosk {
     private void order(Scanner scanner, MenuItem menuItem) {
         System.out.println("위 메뉴를 장바구니에 추가하겠습니까?");
         System.out.println("1. 확인       2. 취소");
+        int userInput = getUserInput(scanner);
 
-        int yesOrNo = scanner.nextInt();
-        scanner.nextLine(); //개행제거
-
-        if (yesOrNo == 1) {
+        if (userInput == 1) {
             shoppingCart.addCart(menuItem);
             System.out.println(menuItem.getName() + "가(이) 장바구니에 추가되었습니다.");
             System.out.println();
@@ -140,9 +138,8 @@ public class Kiosk {
                     shoppingCart.getDetailTotalPrice();
 
                     System.out.println("1. 주문       2. 메뉴판");
-                    int finalChoice = scanner.nextInt();
-                    scanner.nextLine();
-                    if (finalChoice == 1) {
+                    int confirmChoice = getUserInput(scanner);
+                    if (confirmChoice == 1) {
                         System.out.println("주문이 완료되었습니다. 금액은 W " + shoppingCart.getTotalPrice() + " 입니다.");
                     }
                 } else if (orderChoice == 5) {
@@ -167,5 +164,21 @@ public class Kiosk {
                     + DELIMITER + menuItems.get(i).getExplain());
         }
     }
+
+    /**
+     * 사용자 입력 처리
+     * scanner 쓰는 부분이 많아서 코드상 헷갈리고 가독성이 떨어져서 메서드로 빼냈음.
+     * @param scanner
+     * @return
+     */
+    private int getUserInput(Scanner scanner) {
+        int inputNum = scanner.nextInt();
+        scanner.nextLine();
+        return inputNum;
+    }
+
+    //기능 분리 : 장바구니 추가
+
+    //기능 분리 : 취소 
 
 }
