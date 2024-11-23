@@ -128,8 +128,7 @@ public class Kiosk {
                 printOrderMenu();
                 System.out.println();
 
-                int orderChoice = scanner.nextInt();
-                scanner.nextLine();
+                int orderChoice = getUserInput(scanner);
 
                 if (orderChoice == 4) {
                     System.out.println("아래와 같이 주문 하시겠습니까?");
