@@ -66,6 +66,12 @@ public class Kiosk {
                 case 0:
                     System.out.println("시스템을 종료합니다.");
                     return;
+                default:
+                    if (shoppingCart.getCart().isEmpty()) {
+                        if (categoryChoiceNo == 4 || categoryChoiceNo == 5) {
+                            System.out.println("메뉴를 선택하여 장바구니에 추가해주세요!");
+                        }
+                    }
             }
 
         }
