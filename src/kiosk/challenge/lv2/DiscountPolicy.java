@@ -1,6 +1,6 @@
 package kiosk.challenge.lv2;
 
-public enum DiscountInfo {
+public enum DiscountPolicy {
     COMMON("일반",0),
     SOLIDER("군인", 50),
     STUDENT("학생", 30),
@@ -9,7 +9,7 @@ public enum DiscountInfo {
     private final String occupation;
     private final int discountPercent;
 
-    DiscountInfo(String occupation, int discountPercent) {
+    DiscountPolicy(String occupation, int discountPercent) {
         this.occupation = occupation;
         this.discountPercent = discountPercent;
     }
@@ -23,11 +23,19 @@ public enum DiscountInfo {
     }
 
 
-    public void printDiscountInfo() {
+    public static void printDiscountInfo() {
         System.out.println("할인 정보를 입력해주세요.");
-        DiscountInfo[] values = DiscountInfo.values();
+        DiscountPolicy[] values = DiscountPolicy.values();
         for (int i = 1; i <= values.length; i++) {
-            System.out.println(i+". " + values[i].getOccupation() + "    : " + values[i].getDiscountPercent() + "%");
+            System.out.println(i+". " + values[i-1].getOccupation() + "    : " + values[i-1].getDiscountPercent() + "%");
         }
+    }
+
+
+    public static DiscountPolicy returnIndex(int userInput) {
+        if (userInput > 0 && userInput <= DiscountPolicy.values().length) {
+            return DiscountPolicy.values()[userInput - 1];
+        }
+        return null;
     }
 }

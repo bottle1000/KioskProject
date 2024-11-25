@@ -188,13 +188,22 @@ public class Kiosk {
         int confirmChoice = getUserInput(scanner);
 
         if (confirmChoice == 1) {
-            System.out.println("주문이 완료되었습니다. 금액은 W " + shoppingCart.getTotalPrice() + " 입니다.");
+            choiceDiscountNo(scanner);
             removeItemList();
         } else if (confirmChoice == 2) {
             System.out.println("메뉴판으로 돌아갑니다.");
         } else {
             System.out.println("잘못된 입력입니다. 다시 시도해주세요.");
         }
+    }
+
+    //기능 추가 : 직업별 할인률 정보
+    private void choiceDiscountNo(Scanner scanner) {
+        DiscountPolicy.printDiscountInfo();
+        int userInput = getUserInput(scanner);
+        DiscountPolicy discountPolicy = DiscountPolicy.returnIndex(userInput);
+        System.out.println("주문이 완료되었습니다. 금액은 W " +
+                shoppingCart.getDiscountPrice(discountPolicy)+ " 입니다.");
     }
 
     //기능 추가 : 주문 완료 후 리스트에 담긴 아이템 목록 초기화

@@ -40,4 +40,13 @@ public class ShoppingCart {
         }
         return totalPrice;
     }
+
+    public int getDiscountPrice(DiscountPolicy discountPolicy) {
+        //null 체크
+        if (discountPolicy == null) {
+            System.out.println("잘못된 선택입니다. 다시 선택해주세요.");
+            return getTotalPrice();
+        }
+        return (int)(getTotalPrice() - (getTotalPrice() * (discountPolicy.getDiscountPercent() * 0.01)));
+    }
 }
