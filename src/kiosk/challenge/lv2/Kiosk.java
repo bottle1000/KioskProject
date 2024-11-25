@@ -7,6 +7,7 @@ import kiosk.challenge.lv2.menus.drink.Drink;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static kiosk.essential.lv3.main.DELIMITER;
 
@@ -123,10 +124,10 @@ public class Kiosk {
      * @param menuItems 의 각각의 자식들을 파라미터로 받아서 정보를 출력
      */
     private void printOptionMenus(List<? extends MenuItem> menuItems) {
-        for (int i = 0; i < menuItems.size(); i++) {
-            System.out.println((i+1)+ "." + menuItems.get(i).getName() + DELIMITER + menuItems.get(i).getPrice()
-                    + DELIMITER + menuItems.get(i).getExplain());
-        }
+        AtomicInteger counter = new AtomicInteger(0);
+        menuItems.stream()
+                .forEach(menu -> System.out.println(counter.incrementAndGet() + ". " + menu.getName() + DELIMITER + menu.getPrice() +
+                        DELIMITER + menu.getExplain()));
     }
 
     /**
