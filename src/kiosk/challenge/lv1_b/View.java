@@ -60,8 +60,7 @@ public class View {
         return menuItem;
     }
 
-    public void printConfirmAddToCart(MenuItem menuItem) {
-        String itemName = menuItem.getName();
+    public void printConfirmAddToCart(String itemName) {
         System.out.println(itemName + "가(이) 장바구니에 추가되었습니다.");
     }
 
@@ -80,25 +79,25 @@ public class View {
         System.out.println("아래와 같이 주문 하시겠습니까?");
     }
 
-    public void printCartList(CartManager cartManager) {
+    // 이런 식으로 객체를 파라미터로 받으면 의존도가 올라감. 그래서 먼저 인자로 보낼 때 객체를 보내지말고 cartManager.List 이런식으로 보내자!
+    public void printCartList(List<CartItem> cartItemList) {
         System.out.println("[ Orders ]");
-        List<CartItem> cartItemList = cartManager.getCartItemList();
         for (CartItem cartItem : cartItemList) {
             System.out.println(cartItem.getItemName() + "  | W " + cartItem.getPrice() + " | " + cartItem.getQuantity() );
         }
     }
 
-    public void printTotalPrice(CartManager cartManager) {
+    public void printTotalPrice(int totalPrice) {
         System.out.println("[ Total ]");
-        System.out.println("W " + cartManager.calculateTotalPrice());
+        System.out.println("W " + totalPrice);
     }
 
     public void printChoiceConfirmOrder() {
         System.out.println("1. 주문     2. 메뉴판");
     }
 
-    public void printCompleteOrderAndTotalPrice(CartManager cartManager) {
-        System.out.println("주문이 완료되었습니다. 금액은 W " + cartManager.calculateTotalPrice() + " 입니다.");
+    public void printCompleteOrderAndTotalPrice(int totalPrice) {
+        System.out.println("주문이 완료되었습니다. 금액은 W " + totalPrice + " 입니다.");
     }
 
 }

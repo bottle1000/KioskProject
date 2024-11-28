@@ -81,7 +81,7 @@ public class Kiosk {
 
         switch (view.getUserInput()) {
             case 1:
-                view.printConfirmAddToCart(selectedItem);
+                view.printConfirmAddToCart(selectedItem.getName());
                 cartManager.addToCart(selectedItem.getName(), selectedItem.getPrice());
                 break;
             case 2:
@@ -107,7 +107,7 @@ public class Kiosk {
                 return;
             case 4 :
                 view.printAskOrder();
-                view.printCartList(cartManager);
+                view.printCartList(cartManager.getCartItemList());
                 break;
             case 5 :
                 System.out.println("주문을 취소합니다.");
@@ -115,14 +115,15 @@ public class Kiosk {
     }
 
     private void printPriceHandler() {
-        view.printTotalPrice(cartManager);
+        //이런 식으로 인자로 인스턴스를 보내지말자..!
+        view.printTotalPrice(cartManager.calculateTotalPrice());
     }
 
     private void printConfirmOrderHandler() {
         view.printChoiceConfirmOrder();
         switch (view.getUserInput()) {
             case 1 :
-                view.printCompleteOrderAndTotalPrice(cartManager);
+                view.printCompleteOrderAndTotalPrice(cartManager.calculateTotalPrice());
                 break;
             case 2:
                 System.out.println("메뉴판으로 돌아갑니다.");
